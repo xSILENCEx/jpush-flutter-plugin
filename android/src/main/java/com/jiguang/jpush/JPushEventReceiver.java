@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.JPushMessage;
 import cn.jpush.android.service.JPushMessageReceiver;
 import io.flutter.plugin.common.MethodChannel.Result;
@@ -132,13 +131,13 @@ public class JPushEventReceiver extends JPushMessageReceiver {
         });
     }
 
-    @Override
-    public void onNotificationSettingsCheck(Context context, boolean isOn, int source) {
-        super.onNotificationSettingsCheck(context, isOn, source);
-
-
-        HashMap<String, Object> map = new HashMap();
-        map.put("isEnabled",isOn);
-        JPushPlugin.instance.runMainThread(map,null,"onReceiveNotificationAuthorization");
-    }
+//    @Override
+//    public void onNotificationSettingsCheck(Context context, boolean isOn, int source) {
+//        super.onNotificationSettingsCheck(context, isOn, source);
+//
+//
+//        HashMap<String, Object> map = new HashMap();
+//        map.put("isEnabled",isOn);
+//        JPushPlugin.instance.runMainThread(map,null,"onReceiveNotificationAuthorization");
+//    }
 }

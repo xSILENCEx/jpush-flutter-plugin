@@ -128,7 +128,9 @@ public class JPushPlugin implements FlutterPlugin, MethodCallHandler {
         if (enable == null) {
             enable = false;
         }
-        JCoreInterface.setWakeEnable(context,enable);
+
+        result.success(enable);
+//        JCoreInterface.setWakeEnable(context,enable);
     }
 
     // 主线程再返回数据
@@ -347,7 +349,7 @@ public class JPushPlugin implements FlutterPlugin, MethodCallHandler {
         Object numObject = map.get("badge");
         if (numObject != null) {
             int num = (int) numObject;
-            JPushInterface.setBadgeNumber(context, num);
+//            JPushInterface.setBadgeNumber(context, num);
             result.success(true);
         }
     }
@@ -355,10 +357,10 @@ public class JPushPlugin implements FlutterPlugin, MethodCallHandler {
     /// 检查当前应用的通知开关是否开启
     private void isNotificationEnabled(MethodCall call, Result result) {
         Log.d(TAG, "isNotificationEnabled: ");
-        int isEnabled = JPushInterface.isNotificationEnabled(context);
+//        int isEnabled = JPushInterface.isNotificationEnabled(context);
         //1表示开启，0表示关闭，-1表示检测失败
         HashMap<String, Object> map = new HashMap();
-        map.put("isEnabled", isEnabled == 1 ? true : false);
+//        map.put("isEnabled", isEnabled == 1 ? true : false);
 
         runMainThread(map, result, null);
     }
@@ -366,7 +368,7 @@ public class JPushPlugin implements FlutterPlugin, MethodCallHandler {
     private void openSettingsForNotification(MethodCall call, Result result) {
         Log.d(TAG, "openSettingsForNotification: ");
 
-        JPushInterface.goToAppNotificationSettings(context);
+//        JPushInterface.goToAppNotificationSettings(context);
 
     }
 
