@@ -7,8 +7,12 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
+import com.huawei.agconnect.AGConnectInstance;
+import com.huawei.agconnect.AGConnectOptionsBuilder;
+
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -159,7 +163,7 @@ public class JPushPlugin implements FlutterPlugin, MethodCallHandler {
         String channel = (String) map.get("channel");
         JPushInterface.setChannel(context, channel);
 
-        JPushPlugin.instance.dartIsReady = true;
+        instance.dartIsReady = true;
 
         // try to clean getRid cache
         scheduleCache();
@@ -172,9 +176,9 @@ public class JPushPlugin implements FlutterPlugin, MethodCallHandler {
 
         if (dartIsReady) {
             // try to shedule notifcation cache
-            List<Map<String, Object>> openNotificationCacheList = JPushPlugin.openNotificationCache;
+            List<Map<String, Object>> openNotificationCacheList = openNotificationCache;
             for (Map<String, Object> notification : openNotificationCacheList) {
-                JPushPlugin.instance.channel.invokeMethod("onOpenNotification", notification);
+                instance.channel.invokeMethod("onOpenNotification", notification);
                 tempList.add(notification);
             }
             openNotificationCacheList.removeAll(tempList);
@@ -190,7 +194,7 @@ public class JPushPlugin implements FlutterPlugin, MethodCallHandler {
         if (ridAvailable && dartIsReady) {
             // try to schedule get rid cache
             tempList.clear();
-            List<Result> resultList = JPushPlugin.instance.getRidCache;
+            List<Result> resultList = instance.getRidCache;
             for (Result res : resultList) {
                 Log.d(TAG, "scheduleCache rid = " + rid);
                 res.success(rid);
@@ -390,7 +394,7 @@ public class JPushPlugin implements FlutterPlugin, MethodCallHandler {
             if (action.equals(JPushInterface.ACTION_REGISTRATION_ID)) {
                 String rId = intent.getStringExtra(JPushInterface.EXTRA_REGISTRATION_ID);
                 Log.d("JPushPlugin", "on get registration");
-                JPushPlugin.transmitReceiveRegistrationId(rId);
+                transmitReceiveRegistrationId(rId);
 
             } else if (action.equals(JPushInterface.ACTION_MESSAGE_RECEIVED)) {
                 handlingMessageReceive(intent);
@@ -406,7 +410,7 @@ public class JPushPlugin implements FlutterPlugin, MethodCallHandler {
 
             String msg = intent.getStringExtra(JPushInterface.EXTRA_MESSAGE);
             Map<String, Object> extras = getNotificationExtras(intent);
-            JPushPlugin.transmitMessageReceive(msg, extras);
+            transmitMessageReceive(msg, extras);
         }
 
         private void handlingNotificationOpen(Context context, Intent intent) {
@@ -415,7 +419,7 @@ public class JPushPlugin implements FlutterPlugin, MethodCallHandler {
             String title = intent.getStringExtra(JPushInterface.EXTRA_NOTIFICATION_TITLE);
             String alert = intent.getStringExtra(JPushInterface.EXTRA_ALERT);
             Map<String, Object> extras = getNotificationExtras(intent);
-            JPushPlugin.transmitNotificationOpen(title, alert, extras);
+            transmitNotificationOpen(title, alert, extras);
 
             Intent launch = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
             if (launch != null) {
@@ -431,7 +435,7 @@ public class JPushPlugin implements FlutterPlugin, MethodCallHandler {
             String title = intent.getStringExtra(JPushInterface.EXTRA_NOTIFICATION_TITLE);
             String alert = intent.getStringExtra(JPushInterface.EXTRA_ALERT);
             Map<String, Object> extras = getNotificationExtras(intent);
-            JPushPlugin.transmitNotificationReceive(title, alert, extras);
+            transmitNotificationReceive(title, alert, extras);
         }
 
         private Map<String, Object> getNotificationExtras(Intent intent) {
@@ -462,7 +466,7 @@ public class JPushPlugin implements FlutterPlugin, MethodCallHandler {
         msg.put("message", message);
         msg.put("extras", extras);
 
-        JPushPlugin.instance.channel.invokeMethod("onReceiveMessage", msg);
+        instance.channel.invokeMethod("onReceiveMessage", msg);
     }
 
     static void transmitNotificationOpen(String title, String alert, Map<String, Object> extras) {
@@ -472,7 +476,7 @@ public class JPushPlugin implements FlutterPlugin, MethodCallHandler {
         notification.put("title", title);
         notification.put("alert", alert);
         notification.put("extras", extras);
-        JPushPlugin.openNotificationCache.add(notification);
+        openNotificationCache.add(notification);
 
         if (instance == null) {
             Log.d("JPushPlugin", "the instance is null");
@@ -481,8 +485,8 @@ public class JPushPlugin implements FlutterPlugin, MethodCallHandler {
 
         if (instance.dartIsReady) {
             Log.d("JPushPlugin", "instance.dartIsReady is true");
-            JPushPlugin.instance.channel.invokeMethod("onOpenNotification", notification);
-            JPushPlugin.openNotificationCache.remove(notification);
+            instance.channel.invokeMethod("onOpenNotification", notification);
+            openNotificationCache.remove(notification);
         }
 
     }
@@ -498,7 +502,7 @@ public class JPushPlugin implements FlutterPlugin, MethodCallHandler {
         notification.put("title", title);
         notification.put("alert", alert);
         notification.put("extras", extras);
-        JPushPlugin.instance.channel.invokeMethod("onReceiveNotification", notification);
+        instance.channel.invokeMethod("onReceiveNotification", notification);
     }
 
     static void transmitReceiveRegistrationId(String rId) {
@@ -508,10 +512,10 @@ public class JPushPlugin implements FlutterPlugin, MethodCallHandler {
             return;
         }
 
-        JPushPlugin.instance.jpushDidinit = true;
+        instance.jpushDidinit = true;
 
         // try to clean getRid cache
-        JPushPlugin.instance.scheduleCache();
+        instance.scheduleCache();
     }
 
 }
