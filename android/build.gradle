@@ -37,4 +37,10 @@ android {
 dependencies {
     implementation 'cn.jiguang.sdk:jpush:4.0.9'
     implementation 'cn.jiguang.sdk:jcore:2.8.2'
+    // 接入 VIVO 厂商
+    implementation 'cn.jiguang.sdk.plugin:vivo:4.0.9'
+    // 接入 OPPO 厂商
+    implementation 'cn.jiguang.sdk.plugin:oppo:4.0.9'
+    // 接入小米厂商
+    implementation 'cn.jiguang.sdk.plugin:xiaomi:4.0.9'
 }
