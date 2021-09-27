@@ -16,7 +16,9 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="com.jiguang.jpush.JPushEventReceiver">
+        <receiver android:name="com.jiguang.jpush.JPushEventReceiver"
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
                 <category android:name="${applicationId}" />
@@ -25,21 +27,28 @@
         <!-- Since JCore2.0.0 Required SDK核心功能-->
         <!-- 可配置android:process参数将Service放在其他进程中；android:enabled属性不能是false -->
         <!-- 这个是自定义Service，要继承极光JCommonService，可以在更多手机平台上使得推送通道保持的更稳定 -->
-        <service android:name=".MyHWPushService"
+        <service android:name=".JPushCustomService"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.huawei.push.action.MESSAGING_EVENT"/>
+                <action android:name="cn.jiguang.user.service.action"/>
             </intent-filter>
         </service>
-        <service
-            android:name="cn.jpush.android.service.PluginHuaweiPlatformsService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.huawei.push.action.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
+<!--        <service android:name=".MyHWPushService"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="false"-->
+<!--            android:process=":pushcore">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.huawei.push.action.MESSAGING_EVENT"/>-->
+<!--            </intent-filter>-->
+<!--        </service>-->
+<!--        <service-->
+<!--            android:name="cn.jpush.android.service.PluginHuaweiPlatformsService"-->
+<!--            android:exported="false">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.huawei.push.action.MESSAGING_EVENT" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
     </application>
     <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE"/>
 </manifest>
