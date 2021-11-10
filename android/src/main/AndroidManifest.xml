@@ -5,7 +5,7 @@
             android:name="com.jiguang.jpush.JPushPlugin$JPushReceiver"
             android:enabled="true"
             android:exported="false">
-            <intent-filter>
+            <intent-filter android:exported="true">
                 <action android:name="cn.jpush.android.intent.REGISTRATION" />
                 <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
@@ -16,8 +16,10 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="com.jiguang.jpush.JPushEventReceiver">
-            <intent-filter>
+        <receiver 
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter android:exported="true">
                 <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
                 <category android:name="${applicationId}" />
             </intent-filter>
@@ -29,7 +31,7 @@
             android:enabled="true"
             android:exported="false"
             android:process=":pushcore">
-            <intent-filter>
+            <intent-filter android:exported="true">
                 <action android:name="cn.jiguang.user.service.action" />
             </intent-filter>
         </service>
