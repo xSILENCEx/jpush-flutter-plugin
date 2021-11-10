@@ -17,6 +17,7 @@
         </receiver>
 
         <receiver 
+            android:name="com.jiguang.jpush.JPushEventReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter android:exported="true">
