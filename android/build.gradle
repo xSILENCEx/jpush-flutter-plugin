@@ -35,12 +35,13 @@ android {
 }
 
 dependencies {
-    implementation 'cn.jiguang.sdk:jpush:4.0.9'
-    implementation 'cn.jiguang.sdk:jcore:2.8.2'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // implementation 'cn.jiguang.sdk:jpush:4.4.0'
+    // implementation 'cn.jiguang.sdk:jcore:3.0.0'
     // 接入 VIVO 厂商
-    implementation 'cn.jiguang.sdk.plugin:vivo:4.0.9'
+    implementation 'cn.jiguang.sdk.plugin:vivo:4.4.0'
     // 接入 OPPO 厂商
-    implementation 'cn.jiguang.sdk.plugin:oppo:4.0.9'
+    implementation 'cn.jiguang.sdk.plugin:oppo:4.4.0'
     // 接入小米厂商
-    implementation 'cn.jiguang.sdk.plugin:xiaomi:4.0.9'
+    implementation 'cn.jiguang.sdk.plugin:xiaomi:4.4.0'
 }

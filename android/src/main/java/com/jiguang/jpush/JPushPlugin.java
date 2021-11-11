@@ -128,6 +128,7 @@ public class JPushPlugin implements FlutterPlugin, MethodCallHandler {
         if (enable == null) {
             enable = false;
         }
+
         JCoreInterface.setWakeEnable(context,enable);
     }
 
