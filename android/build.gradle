@@ -3,9 +3,8 @@ version '1.0-SNAPSHOT'
 
 buildscript {
     repositories {
-        mavenCentral()
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
@@ -15,9 +14,8 @@ buildscript {
 
 rootProject.allprojects {
     repositories {
-        mavenCentral()
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
@@ -36,8 +34,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    // implementation 'cn.jiguang.sdk:jpush:4.4.0'
-    // implementation 'cn.jiguang.sdk:jcore:3.0.0'
+//    implementation 'cn.jiguang.sdk:jpush:4.4.0'
+//    implementation 'cn.jiguang.sdk:jcore:3.0.0'
     // 接入 VIVO 厂商
     implementation 'cn.jiguang.sdk.plugin:vivo:4.4.0'
     // 接入 OPPO 厂商

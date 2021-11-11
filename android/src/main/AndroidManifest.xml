@@ -1,6 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.jiguang.jpush">
     <application>
+        <!--Required SDK核心功能 since 3.3.0-->
+        <activity
+            android:name="cn.jpush.android.service.JNotifyActivity"
+            android:exported="true"
+            android:taskAffinity="jpush.custom"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.JNotifyActivity" />
+                <category android:name="android.intent.category.DEFAULT" /><!--Required SDK核心功能 since 4.2.2-->
+                <category android:name="${applicationId}" />
+            </intent-filter>
+        </activity>
+
         <receiver
             android:name="com.jiguang.jpush.JPushPlugin$JPushReceiver"
             android:enabled="true"
@@ -19,8 +32,8 @@
         <receiver 
             android:name="com.jiguang.jpush.JPushEventReceiver"
             android:enabled="true"
-            android:exported="true">
-            <intent-filter android:exported="true">
+            android:exported="false">
+            <intent-filter android:exported="false">
                 <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
                 <category android:name="${applicationId}" />
             </intent-filter>
@@ -37,5 +50,4 @@
             </intent-filter>
         </service>
     </application>
-    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE"/>
 </manifest>
